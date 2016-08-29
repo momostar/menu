@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>圆形导航菜单一</title>
+	<style>
+		#box{
+			position: absolute;
+			width: 80px;
+			height: 80px;
+			border-radius: 50%;
+			top: 50%;
+			left:50%;
+			margin-top: -50px;
+			margin-left: -50px;
+			z-index: 99;
+		}
+		#box div{
+			position: absolute;
+			width: 80px;
+			height: 80px;
+			background-color: #000;
+			border-radius: 50%;
+			left: 0;
+			top: 0;
+			z-index: 10;
+			cursor: pointer;
+		}
+		#box .cover{
+			z-index: 999;
+			background: #ccc;
+		}
+		#box .menu{
+			transition: all 0.3s;
+		}
+		#box div img{
+			width: 80px;
+			height: 80px;
+			border-radius: 50%
+		}
+	</style>
+	<script type="text/javascript">
+		window.onload=function() {
+			var oBox=document.getElementById("box");
+			var oMenu=oBox.getElementsByClassName("menu");
+			var oCover=oBox.getElementsByClassName("cover")[0];
+			var total=180  ;
+			var iDeg=total/(oMenu.length-1);
+			var r=150;
+			var flg=true;
+			oCover.onclick=function () {
+				for (var i = 0;i<oMenu.length;i++) {
+					if (flg) {
+						var deg=iDeg*i;
+						var pos=getPos(deg,r);
+						oMenu[i].style.left = pos.left + 'px';
+						oMenu[i].style.top = pos.top + 'px';
+						oMenu[i].style.transition="0.3s "+i*0.05+"s";
+					}else {
+						oMenu[i].style.top='0px';
+						oMenu[i].style.left='0px';
+						oMenu[i].style.transition="0.3s "+i*0.05+"s";
+					}
+				}
+				flg=!flg;
+			}
+			function getPos(deg,r) {
+					var left=-r*Math.sin(deg*Math.PI/180);
+					var top=-r*Math.cos(deg*Math.PI/180);
+					return{left:left,top:top}
+				}
+		}
+	</script>
+</head>
+<body>
+	<div id="box">
+		<div class="menu"></div>
+		<div class="menu"></div>
+		<div class="menu"></div>
+		<div class="menu"></div>
+		<div class="menu"></div>
+		<div class="menu"></div>
+		<div class="menu"></div>
+		<div class="cover">
+			<img src="images/icon-menu.png" alt="placeholder+image">
+		</div>
+	</div>
+</body>
+</html>
